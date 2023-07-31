@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="seq_book_order" model="ir.sequence">
+            <field name="name">Book</field>
+            <field name="code">student.library</field>
+            <field name="prefix">B</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_student_model" model="ir.sequence">
+            <field name="name">Student</field>
+            <field name="code">student.student</field>
+            <field name="prefix">B</field>
+<!--            <field name="implementation">no_gap</field>-->
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

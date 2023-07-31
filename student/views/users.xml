@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record id="user_action" model="ir.actions.act_window">
+            <field name="name">Users</field>
+            <field name="res_model">res.users</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_content_smiling_face">
+                    Create User
+                </p>
+            </field>
+        </record>
+        <record id="user_tree_view" model="ir.ui.view">
+            <field name="name">user_tree</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='login_date']" position="after">
+                    <field name="admin" attrs="{'invisible': [('manager', '=', True)]}"/>
+                    <field name="manager" attrs="{'invisible': [('admin', '=', True)]}"/>
+                </xpath>
+
+                <!--                        <tree string="Users">-->
+                <!--                           -->
+                <!--                        </tree>-->
+            </field>
+        </record>
+
+
+        <!--        <record id="user_action_tree" model="ir.ui.view">-->
+        <!--            <field name="name">hostel.User.tree</field>-->
+        <!--            <field name="model">res.users</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <tree string="student">-->
+        <!--                   <field name="manager"/>-->
+        <!--                </tree>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <record id="manager_form_view" model="ir.ui.view">
+            <field name="name">users_form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                   <field name="admin" attrs="{'invisible': [('manager', '=', True)]}"/>
+                    <field name="manager" attrs="{'invisible': [('admin', '=', True)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <menuitem
+                id="users_menu"
+                name="Users"
+                parent="student.student_menu_root"
+                action="student.user_action"
+                sequence="5"/>
+
+    </data>
+</odoo>

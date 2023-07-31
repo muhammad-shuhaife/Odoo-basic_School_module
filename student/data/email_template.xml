@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+
+        <record id="email_template_demo" model="mail.template">
+            <field name="name">EMAIL TEMPLATE DEMO</field>
+            <field name="model_id" ref="model_student_student"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="email_from">{{user.email}}</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="subject">Student Details</field>
+            <field name="body_html">
+           <![CDATA[
+                <p>Dear <t t-out="object.first_name" />,</p>
+                <p>We hope this email finds you well. We would like to provide you with the details of your student record:</p>
+                <ul>
+                    <li><strong>Student ID:</strong> <t t-out="object.student_sequence" /></li>
+                    <li><strong>First Name:</strong> <t t-out="object.first_name" /></li>
+                    <li><strong>Last Name:</strong> <t t-out="object.last_name" /></li>
+                    <li><strong>Date of Birth:</strong> <t t-out="object.date_of_birth" /></li>
+                    <li><strong>Age:</strong> <t t-out="object.age" /></li>
+                    <li><strong>Phone:</strong> <t t-out="object.phone" /></li>
+                    <li><strong>Email:</strong> <t t-out="object.email" /></li>
+                    <li><strong>Address:</strong> <t t-out="object.address" /></li>
+                    <li><strong>Grade:</strong> <t t-out="object.grade" /></li>
+                </ul>
+                <p>If you have any further inquiries or require additional information, please feel free to reach out to us. We are always happy to assist you.</p>
+                <p>Thank you for your cooperation.</p>
+                <p>Best regards,<br/>
+                [Your Name]<br/>
+                [Your Position]<br/>
+                [Your Institution/Organization]</p>
+                ]]>     
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

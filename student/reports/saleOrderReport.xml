@@ -1,0 +1,114 @@
+<odoo>
+    <data>
+<record id="action_manager_id_card" model="ir.actions.report">
+            <field name="name">Sale order Card</field>
+            <field name="model">student.allocation.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">student.report_manager_id_card</field>
+            <field name="report_file">student.report_manager_id_card</field>
+            <field name="print_report_name">'Sale Card </field>
+            <field name="binding_model_id" ref="model_student_allocation_wizard"/>
+        </record>
+
+
+
+        <template id="report_manager_id_card">
+            <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <t t-foreach="records" t-as="rec">
+                            <span t-set="order_data" t-value="request.env['sale.order'].browse(rec)"/>
+                        <t t-set="address">
+                            <div  t-field="order_data.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                            <p t-if="order_data.partner_id.vat"><t t-esc="order_data.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="order_data.partner_id.vat"/></p>
+                        </t>
+                        <t t-if="order_data.partner_shipping_id == order_data.partner_invoice_id                              and order_data.partner_invoice_id != order_data.partner_id                              or order_data.partner_shipping_id != order_data.partner_invoice_id">
+                            <t t-set="information_block">
+                                <strong t-if="order_data.partner_shipping_id == order_data.partner_invoice_id">Invoicing and Shipping Address:</strong>
+                                <strong t-if="order_data.partner_shipping_id != order_data.partner_invoice_id">Invoicing Address:</strong>
+                                <div t-field="order_data.partner_invoice_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                                <t t-if="order_data.partner_shipping_id != order_data.partner_invoice_id">
+                                    <strong>Shipping Address:</strong>
+                                    <div t-field="order_data.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                                </t>
+                            </t>
+                        </t><div class="page">
+                            <div class="oe_structure"/>
+
+                                <h2 class="mt16">
+                                    <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                                        <span t-if="order_data.state not in ['draft','sent']">Order # </span>
+                                        <span t-if="order_data.state in ['draft','sent']">Quotation # </span>
+                                    </t>
+                                    <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                                        <span>Pro-Forma Invoice # </span>
+                                    </t>
+                                    <span t-field="order_data.name"/>
+                                </h2>
+
+                                <div class="row mt32 mb32" id="informations">
+                                    <div t-if="order_data.client_order_ref" class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Your Reference:</strong>
+                                        <p class="m-0" t-field="order_data.client_order_ref"/>
+                                    </div>
+                                    <div t-if="order_data.date_order and order_data.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Order Date:</strong>
+                                        <p class="m-0" t-field="order_data.date_order"/>
+                                    </div>
+                                    <div t-if="order_data.date_order and order_data.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Quotation Date:</strong>
+                                        <p class="m-0" t-field="order_data.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                                    </div>
+                                    <div t-if="order_data.validity_date and order_data.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2" name="expiration_date">
+                                        <strong>Expiration:</strong>
+                                        <p class="m-0" t-field="order_data.validity_date"/>
+                                    </div>
+                                    <div t-if="order_data.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Salesperson:</strong>
+                                        <p class="m-0" t-field="order_data.user_id"/>
+                                    </div>
+                                </div><table class="table table-sm table-reports">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Price</th>
+                                        <th>Taxes</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="order_data.order_line" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.product_uom_qty"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.tax_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.price_subtotal"/>
+                                    </td>
+                                </tr>
+
+
+                                </t>
+                            </table>
+                        </div>
+                    </t>
+
+                    </t>
+                </t>
+        </template>
+
+
+
+
+
+
+    </data>
+</odoo>

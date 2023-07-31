@@ -1,0 +1,83 @@
+<odoo>
+<data>
+<record id="div_tree_view" model="ir.ui.view">
+        <field name="name">division.tree</field>
+        <field name="model">student.division</field> 
+        <field name="arch" type="xml">
+            <tree string="Class">
+                <field name="division_name"/>
+                <field name="description"/>
+                <field name="location"/>
+                <field name="staff_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+<record id="div_form_view" model="ir.ui.view">
+        <field name="name">division.form</field>
+        <field name="model">student.division</field> 
+        <field name="arch" type="xml">
+            <form string="Division">
+               <sheet>
+               <group>
+               <group>
+                <field name="division_name"/>
+                <field name="description"/>
+                </group>
+               <group>
+                <field name="location"/>
+                <field name="staff_id"/>
+                </group>
+                </group>
+                </sheet> 
+            </form>
+        </field>
+    </record> 
+
+<record id="div_search_view" model="ir.ui.view">
+        <field name="name">division.search</field>
+        <field name="model">student.division</field> 
+        <field name="arch" type="xml">
+            <search string="Division">
+                <field name="division_name"/>
+                <field name="description"/>
+                <field name="location"/>
+                <field name="staff_id"/>
+            </search>
+        </field>
+    </record>
+
+
+
+<!-- ######################################################################################################## -->
+
+
+
+
+      <record id="division_action" model="ir.actions.act_window">
+           <field name="name">Division</field>
+           <field name="res_model">student.division</field>
+           <field name="view_mode">tree,form</field>
+           <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Create division
+                 </p>
+                </field>
+              </record>
+
+
+
+<!-- ######################################################################################################## -->
+
+
+    <menuitem
+      id="student_division_root"
+      name="Division"
+      parent="student.class_main"
+      action="student.division_action"
+      sequence="2"/>
+
+
+
+</data></odoo>

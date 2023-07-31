@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <record id="general_settings_inherit_form" model="ir.ui.view">
+            <field name="name">general.settings_inherit_form</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//div[@id='companies']" position="after">
+                    <group>
+                        <group>
+                            <field name="alert_after"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="test_tree_view" model="ir.ui.view">
+            <field name="name">test.test</field>
+            <field name="model">test.test</field>
+            <field name="arch" type="xml">
+                <tree string="Test">
+                    <field name="user_id"/>
+                    <field name="name"/>
+                    <field name="expiry_date"/>
+                    <field name="alert_after"/>
+                    <field name="state"/>
+                    <field name="current_user"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="test_form_view" model="ir.ui.view">
+            <field name="name">test.test</field>
+            <field name="model">test.test</field>
+            <field name="arch" type="xml">
+                <form string="Test">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="name"/>
+                                <field name="expiry_date"/>
+                                <field name="alert_after"/>
+                                <field name="state"/>
+                                <field name="current_user"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="test_action" model="ir.actions.act_window">
+            <field name="name">Test</field>
+            <field name="res_model">test.test</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create Test
+                </p>
+            </field>
+        </record>
+        <menuitem
+                id="test_menu"
+                name="Test"
+                parent="student.student_menu_root"
+                action="student.test_action"
+                sequence="30"/>
+    </data>
+</odoo>

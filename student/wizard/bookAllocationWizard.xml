@@ -1,0 +1,37 @@
+<odoo><data>
+
+
+
+<record id="book_allocation_wizard_form_view" model="ir.ui.view">
+        <field name="name">Allocation_wizard.form</field>
+        <field name="model">student.allocation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Book allocation">
+
+               <group>
+               <group>
+               <field name="book_id"/>
+                <field name="student_id"/>
+               </group>
+                </group>
+                <footer>
+                    <button name="allocate_book" string ="allocate" type="object" class="btn-secondary" data-hotkey="q"/>
+                    <button name="print_report" string="Print Report" type="object" class="btn-danger"/>
+                    <button name="print_sale_report" string="Print Sale report" type="object" class="btn-success"/>
+                    <button special="cancel" string ="Cancel"  class="btn-primary" data-hotkey="z"/>
+
+                </footer>
+            </form>
+        </field>
+    </record>
+
+              <record id="book_allocation_wizard_action" model="ir.actions.act_window">
+           <field name="name">Book Allocation</field>
+           <field name="type">ir.actions.act_window</field>
+           <field name="res_model">student.allocation.wizard</field>
+           <field name="view_mode">form</field>
+           <field name="target">new</field>
+              </record>
+
+
+</data></odoo>

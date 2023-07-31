@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+        <record id="book_rental_menu" model="website.menu">
+            <field name="name">book</field>
+            <field name="url">/book</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">5</field>
+        </record>
+
+        <odoo>
+            <template id="library_template">
+                <t t-call="website.layout">
+                    <div class="container">
+                        <h2>All Customers</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>book sequence</th>
+                                    <th>Name</th>
+                                    <th>Author</th>
+                                    <th>Status</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="book" t-as="o">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="o.book_sequence"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.author"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="o.status">
+                                                <span class="text-success">Available</span>
+                                            </t>
+                                            <t t-else="">
+                                                <span class="text-danger">Borrowed</span>
+                                            </t>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </template>
+        </odoo>
+        <!--<record id="car_rental_menu" model="website.menu">&ndash;&gt;-->
+        <!--            <field name="name">Car rental</field>-->
+        <!--            <field name="url">/car</field>-->
+        <!--            <field name="parent_id" ref="website.main_menu"/>-->
+        <!--            <field name="sequence" type="int">10</field>-->
+        <!--        </record>-->
+
+        <!--        <odoo>-->
+        <!--    <template id="car_rental_template">-->
+        <!--        <t t-call="website.layout">-->
+        <!--            <div class="container">-->
+        <!--                <h2>All Customers</h2>-->
+        <!--                <table class="table">-->
+        <!--                    <thead>-->
+        <!--                        <tr>-->
+        <!--                            <th>Name</th>-->
+        <!--                            <th>Price</th>-->
+        <!--                            <th>Details</th>-->
+        <!--                        </tr>-->
+        <!--                    </thead>-->
+        <!--                    <tbody>-->
+        <!--                        <t t-foreach="car" t-as="o">-->
+        <!--                            <tr>-->
+        <!--                                <td><t t-esc="o.name"/></td>-->
+        <!--                                <td><t t-esc="o.price"/></td>-->
+        <!--                                <td><t t-esc="o.details"/></td>-->
+        <!--                            </tr>-->
+        <!--                        </t>-->
+        <!--                    </tbody>-->
+        <!--                </table>-->
+        <!--            </div>-->
+        <!--        </t>-->
+        <!--    </template>-->
+        <!--</odoo>-->
+
+
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="ir_cron_data_update" model="ir.cron">
+            <field name="name">DEMO : Cron</field>
+            <field name="model_id" ref="model_student_teacher"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.demo_cron()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+<!--=================================-->
+
+        <record id="ir_cron_data_email" model="ir.cron">
+            <field name="name">Email-crone</field>
+            <field name="model_id" ref="model_student_student"/>
+            <field name="state">code</field>
+            <field name="code">model.email_function()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+        </record>
+
+
+
+    </data>
+</odoo>

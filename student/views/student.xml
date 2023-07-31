@@ -1,0 +1,280 @@
+<odoo>
+    <data>
+        <record id="st_tree_view" model="ir.ui.view">
+            <field name="name">student.tree</field>
+            <field name="model">student.student</field>
+            <field name="arch" type="xml">
+                <tree string="Student">
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="date_of_birth"/>
+                    <!--                <field name="schedule_student"/>-->
+                    <field name="phone"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ================== -->
+
+        <!--        <record id="sale_order_inherit_form" model="ir.ui.view">-->
+        <!--            <field name="name">sale_order_inherit</field>-->
+        <!--            <field name="model">sale.order</field>-->
+        <!--            <field name="inherit_id" ref="sale.view_order_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="partner_id" position="after">-->
+        <!--                    <field name="address"/>-->
+        <!--                    <field name="grade"/>-->
+        <!--                    <field name="grade"/>-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!-- ================== -->
+
+
+<!--        <record id="product_inherit_form" model="ir.ui.view">-->
+<!--            <field name="name">product_inherit</field>-->
+<!--            <field name="model">product.template</field>-->
+<!--            <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='detailed_type']" position="after">-->
+<!--                    <field name="quality"/>-->
+<!--                    <field name="grade"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!--        ============================-->
+
+        <record id="server_action_inherit" model="ir.actions.server">
+            <field name="name">server.action.inherit</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                record.action_confirm()
+            </field>
+        </record>
+
+
+        <!--        ============================-->
+        <record id="client_action_" model="ir.actions.client">
+            <field name="name">client.action.name</field>
+            <field name="tag">tag_client_action</field>
+            <field name="target">new</field>
+        </record>
+
+<!--        <record id="invoice_inherit_form" model="ir.ui.view">-->
+<!--            <field name="name">invoice_inherit</field>-->
+<!--            <field name="model">account.move</field>-->
+<!--            <field name="inherit_id" ref="account.view_move_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//header" position="inside">-->
+<!--                    <button name="%(client_action_)d" type="action" string="display_action" class="oe_highlight"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <!--        <record id="product_line_inherit_form___" model="ir.ui.view">-->
+        <!--            <field name="name">product.line.inherit</field>-->
+        <!--            <field name="model">product.template.attribute.line</field>-->
+        <!--            <field name="inherit_id" ref="product.product_template_attribute_value_view_tree"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="attribute_id" position="after">-->
+        <!--                     <field name="count" string="Quality"/>-->
+        <!--                    <field name="rate" string="Grade"/>-->
+        <!--                </field>-->
+        <!--&lt;!&ndash;                <xpath expr="//tree//field[@name='attribute_id']" position="after">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <field name="count" string="Quality"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <field name="rate" string="Grade"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </xpath>&ndash;&gt;-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <!--        <record id="product_template_only_form_view_inherit" model="ir.ui.view">-->
+        <!--            <field name="name">product.template.product.form.inherit</field>-->
+        <!--            <field name="model">product.template</field>-->
+        <!--            <field name="inherit_id" ref="product.product_template_form_view"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--        <xpath expr="//page[@name='variants']//field[@name='attribute_line_ids']/tree/field[@name='value_ids']" position="after">-->
+
+        <!--                    <field name="count" string="Quality"/>-->
+        <!--                    <field name="rate" string="Grade"/>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <!-- ================== -->
+
+
+<!--                <record id="product_line_inherit_form" model="ir.ui.view">-->
+<!--            <field name="name">product_line_inherit</field>-->
+<!--            <field name="model">product.template.attribute.line</field>-->
+<!--            <field name="inherit_id" ref="product.product_template_attribute_value_view_tree"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//tree//field[@name='attribute_id']" position="after">-->
+<!--                    <field name="count" string="Quality"/>-->
+<!--                    <field name="rate" string="Grade"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <!-- ================== -->
+
+
+
+
+        <!--        ===========================-->
+
+
+        <record id="st_form_view" model="ir.ui.view">
+            <field name="name">student.form</field>
+            <field name="model">student.student</field>
+            <field name="arch" type="xml">
+                <form string="Student">
+                    <header>
+                        <button name="confirm_student" icon="fa-check" string="Confirm" type="object"
+                                class="btn-success"
+                                attrs="{'invisible': ['|',('state','=', 'confirm'),('state','=', 'reject')]}"/>
+                        <button name="reject_student" icon="fa-times" string="Reject" type="object"
+                                class="btn-danger" attrs="{'invisible': [('state','=', 'reject')]}"/>
+                        <field name="state" widget="statusbar"/>
+                        <button name="email_crone" string="scheduled action" type="object" class="btn-primary"/>
+                        <button name="email_function" string="Email button" type="object" icon="fa-envelope"
+                                class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <div>
+                            <strong>
+                                <h1>
+                                    <field name="student_sequence"/>
+                                </h1>
+                            </strong>
+                        </div>
+                        <widget name="web_ribbon" title="confirmed" bg_color="bg-success"
+                                attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
+                        <widget name="web_ribbon" title="Rejected" bg_color="bg-danger"
+                                attrs="{'invisible': [('state', '!=', 'reject')]}"/>
+                        <group>
+                            <group>
+                                <field name="first_name"/>
+                                <field name="last_name"/>
+                                <!--                                 <field name="grade"/> -->
+                                <field name="student_id"/>
+                                <button name="url_act_fun" string="Redirect" type="object"
+                                        confirm="are you sure want to redirect" class="oe_highlight" data-hotkey="q"/>
+                            </group>
+                            <group>
+                                <field name="date_of_birth"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="age"/>
+                                <field name="user_id"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ================== -->
+
+        <record id="st_search_view" model="ir.ui.view">
+            <field name="name">student.search</field>
+            <field name="model">student.student</field>
+            <field name="arch" type="xml">
+                <search string="Student">
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="date_of_birth"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <filter string="filter by mail" domain="[('email', '=', 'maiil')]" name="my_email_filter"/>
+                    <filter string="filter by id" domain="[('create_uid', '=', uid)]" name="my_ID_filter"/>
+                    <filter string="filter by today"
+                            domain="[('create_date', '&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"
+                            name="today"/>
+                    <separator/>
+                    <filter string="filter by DOB" name="my_DOB_filter" date="date_of_birth"
+                            default_period="this_year"/>
+                    <group expand="0" string="Group By">
+                        <filter string="DOB" name="group_by_DOB" domain="[]" context="{'group_by': 'date_of_birth'}"/>
+                        <filter string="Age" name="group_by_age" domain="[]" context="{'group_by': 'age'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <!-- ######################################################################################################## -->
+
+
+        <record id="student_action" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="res_model">student.student</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_content_smiling_face">
+                    Create Student
+                </p>
+            </field>
+        </record>
+
+        <!-- ================ -->
+
+        <record id="ir_action_confirm" model="ir.actions.server">
+            <field name="name">Confirm</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_student_student"/>
+            <field name="binding_model_id" ref="model_student_student"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                for rec in records:
+                rec.confirm_student()
+            </field>
+        </record>
+
+        <!--    ====================-->
+
+
+        <record id="student_mail_action" model="ir.actions.act_window">
+            <field name="name">Mail</field>
+            <field name="res_model">student.student</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_my_email_filter': 1}</field>
+        </record>
+
+        <!-- ######################################################################################################## -->
+
+
+        <menuitem
+                id="student_menu_root"
+                name="Student"
+                sequence="1"/>
+        <menuitem
+                id="student_root"
+                name="Student"
+                parent="student.student_menu_root"
+                sequence="1"/>
+        <menuitem
+                id="student_root_menu"
+                name="Student"
+                parent="student.student_root"
+                action="student.student_action"
+                sequence="1"/>
+        <!--        <menuitem-->
+        <!--                id="student_mail_root"-->
+        <!--                name="Mail"-->
+        <!--                parent="student.student_root"-->
+        <!--                action="student.student_mail_action"-->
+        <!--                sequence="2"/>-->
+    </data>
+</odoo> 

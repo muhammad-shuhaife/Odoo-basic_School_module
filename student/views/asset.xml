@@ -1,0 +1,7 @@
+<odoo>
+    <template id="assets_backend_custom_web" inherit_id="web.assets_backend" name="custom_display">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/student/static/src/js/invoice_custom_message.js"/>
+        </xpath>
+    </template>
+</odoo>

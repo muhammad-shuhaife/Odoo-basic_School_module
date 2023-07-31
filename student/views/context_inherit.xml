@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record id="context_sale_order_discount" model="ir.ui.view">
+            <field name="name">Sale order inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <button name="context_func" type="object" context="{'discount_per':discount}"
+                            string="Apply discount"/>
+                </field>
+
+                <field name="payment_term_id" position="after">
+                    <field name="discount"/>
+                </field>
+            </field>
+
+        </record>
+
+
+    </data>
+
+</odoo>
